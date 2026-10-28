@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:ewtest;MODE=MSSQLServer;DB_CLOSE_DELAY=-1
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+app:
+  jwt:
+    # Test-only key, not used anywhere else.
+    secret: dGVzdC1vbmx5LWtleS10ZXN0LW9ubHkta2V5LXRlc3Qtb25seS1rZXktMTIzNDU2
+  bootstrap:
+    admin-password: ""
+  upload-dir: target/test-uploads

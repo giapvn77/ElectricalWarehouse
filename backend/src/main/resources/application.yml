@@ -1,0 +1,58 @@
+spring:
+  application:
+    name: electrical-warehouse
+  datasource:
+    url: ${DB_URL:jdbc:sqlserver://localhost:1433;databaseName=ElectricalWarehouse;encrypt=true;trustServerCertificate=true}
+    username: ${DB_USERNAME:sa}
+    password: ${DB_PASSWORD:}
+  jpa:
+    open-in-view: false
+    hibernate:
+      # Schema is generated from the entities. Switch to "validate" + a migration tool before production.
+      ddl-auto: ${JPA_DDL_AUTO:update}
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc.time_zone: Asia/Ho_Chi_Minh
+  mail:
+    host: ${MAIL_HOST:localhost}
+    port: ${MAIL_PORT:587}
+    username: ${MAIL_USERNAME:}
+    password: ${MAIL_PASSWORD:}
+    properties:
+      mail.smtp.auth: ${MAIL_SMTP_AUTH:false}
+      mail.smtp.starttls.enable: ${MAIL_STARTTLS:false}
+  servlet:
+    multipart:
+      max-file-size: 10MB
+
+server:
+  port: ${SERVER_PORT:8090}
+
+app:
+  jwt:
+    # Base64-encoded key of at least 256 bits. Generate: openssl rand -base64 48
+    secret: ${JWT_SECRET}
+    access-token-minutes: ${JWT_ACCESS_MINUTES:30}
+    refresh-token-days: ${JWT_REFRESH_DAYS:7}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5180}
+  mail:
+    enabled: ${MAIL_ENABLED:false}
+    from: ${MAIL_FROM:no-reply@electricalwarehouse.local}
+  bootstrap:
+    # The admin account is created on first start only when this is set.
+    admin-username: ${APP_ADMIN_USERNAME:admin}
+    admin-password: ${APP_ADMIN_PASSWORD:}
+  # Product images are stored here and served at /uploads/**
+  upload-dir: ${UPLOAD_DIR:uploads}
+  # TTF font with Vietnamese glyphs for PDF export. Empty = try common system fonts.
+  pdf-font: ${PDF_FONT:}
+  alert:
+    # Min-Max scan schedule (default: every hour) and expiry warning window.
+    cron: ${INVENTORY_ALERT_CRON:0 0 * * * *}
+    expiry-warning-days: ${EXPIRY_WARNING_DAYS:30}
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
